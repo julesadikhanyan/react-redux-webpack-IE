@@ -8,10 +8,11 @@ export const fetchPostsRequest = () => {
     }
 }
 
-export const fetchPostsSuccess = (posts) => {
+export const fetchPostsSuccess = (posts, pages) => {
     return {
         type: types.FETCH_POSTS_SUCCESS,
-        posts: posts
+        posts: posts,
+        pages: pages
     }
 }
 
@@ -22,14 +23,14 @@ export const fetchPostsFailure = (error) => {
     }
 }
 
-export function fetchPosts() {
+export function fetchPosts(page) {
     return function (dispatch) {
         dispatch(fetchPostsRequest());
-        axios.get("https://gorest.co.in/public/v1/posts")
+        axios.get(`https://gorest.co.in/public/v1/posts?page=${page}`)
             .then(response => {
+                const pages = response.data.meta.pagination.pages;
                 const posts = response.data.data;
-                console.log(posts);
-                dispatch(fetchPostsSuccess(posts));
+                dispatch(fetchPostsSuccess(posts, pages));
             })
             .catch(error => {
                 const message = error.message;

@@ -4,7 +4,8 @@ export const initialState = {
     loading: false,
     users: [],
     posts: [],
-    error: ""
+    error: "",
+    pages: 0
 }
 
 const usersReducer = (state = initialState, action) => {
@@ -19,14 +20,16 @@ const usersReducer = (state = initialState, action) => {
                 loading: false,
                 users: action.users,
                 posts: [],
-                error: ""
+                error: "",
+                pages: action.pages
             }
         case types.FETCH_USERS_FAILURE:
             return {
                 loading: false,
                 users: [],
                 posts: [],
-                error: action.error
+                error: action.error,
+                pages: 0
             }
         default: return state
     }

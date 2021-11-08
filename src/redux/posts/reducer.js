@@ -14,14 +14,16 @@ const postsReducer = (state = initialState, action) => {
                 loading: false,
                 users: [],
                 posts: action.posts,
-                error: ""
+                error: "",
+                pages: action.pages
             }
         case types.FETCH_POSTS_FAILURE:
             return {
                 loading: false,
                 users: [],
                 posts: [],
-                error: action.error
+                error: action.error,
+                pages: 0
             }
         default: return state
     }
