@@ -5,6 +5,8 @@ import "./App.css";
 import Header from "./components/Header";
 import Users from "./pages/Users";
 import Posts from "./pages/Posts";
+import User from "./pages/User";
+import Post from "./pages/Post";
 
 const App = () => {
     return (
@@ -17,6 +19,12 @@ const App = () => {
                 </Route>
                 <Route exact path="/posts">
                     <Posts/>
+                </Route>
+                <Route exact path="/users/:id">
+                    <User/>
+                </Route>
+                <Route exact path="/post/:id">
+                    <Post/>
                 </Route>
             </Switch>
         </BrowserRouter>

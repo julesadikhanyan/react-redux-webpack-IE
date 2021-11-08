@@ -1,5 +1,6 @@
 import React from "react";
-import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@material-ui/core";
+import {Link, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@material-ui/core";
+import { Link as LinkRouter } from "react-router-dom";
 
 import Pages from "../Pagination";
 
@@ -27,7 +28,11 @@ const PostsTable = (props) => {
                                 <TableCell component="th" scope="row">
                                     {row.id}
                                 </TableCell>
-                                <TableCell align="right">{row.title}</TableCell>
+                                <TableCell align="right">
+                                    <Link underline="hover" component={LinkRouter} to={`/post/${row.id}`}>
+                                        {row.title}
+                                    </Link>
+                                </TableCell>
                             </TableRow>
                         ))}
                     </TableBody>

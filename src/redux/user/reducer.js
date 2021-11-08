@@ -1,44 +1,34 @@
 import * as types from "./actionsType";
 
-export const initialState = {
-    loading: false,
-    users: [],
-    posts: [],
-    error: "",
-    pages: 0,
-    userDetails: {},
-    postDetails: {}
-}
+import { initialState } from "../users/reducer";
 
-const usersReducer = (state = initialState, action) => {
+const userReducer = (state = initialState, action) => {
     switch (action.type) {
-        case types.FETCH_USERS_REQUEST:
+        case types.FETCH_USER_REQUEST:
             return {
                 ...state,
                 loading: true,
             }
-        case types.FETCH_USERS_SUCCESS:
+        case types.FETCH_USER_SUCCESS:
             return {
                 loading: false,
-                users: action.users,
+                users: [],
                 posts: [],
                 error: "",
                 pages: action.pages,
-                userDetails: {},
-                postDetails: {}
+                userDetails: action.userDetails
             }
-        case types.FETCH_USERS_FAILURE:
+        case types.FETCH_USER_FAILURE:
             return {
                 loading: false,
                 users: [],
                 posts: [],
                 error: action.error,
                 pages: 0,
-                userDetails: {},
-                postDetails: {}
+                userDetails: {}
             }
         default: return state
     }
 }
 
-export default usersReducer;
+export default userReducer;

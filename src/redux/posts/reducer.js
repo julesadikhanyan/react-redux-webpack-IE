@@ -15,7 +15,9 @@ const postsReducer = (state = initialState, action) => {
                 users: [],
                 posts: action.posts,
                 error: "",
-                pages: action.pages
+                pages: action.pages,
+                userDetails: {},
+                postDetails: {}
             }
         case types.FETCH_POSTS_FAILURE:
             return {
@@ -23,7 +25,9 @@ const postsReducer = (state = initialState, action) => {
                 users: [],
                 posts: [],
                 error: action.error,
-                pages: 0
+                pages: 0,
+                userDetails: {},
+                postDetails: {}
             }
         default: return state
     }

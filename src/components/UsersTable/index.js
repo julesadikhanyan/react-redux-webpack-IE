@@ -1,5 +1,6 @@
 import React from "react";
-import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@material-ui/core";
+import { Link, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@material-ui/core";
+import { Link as LinkRouter } from "react-router-dom";
 
 import Pages from "../Pagination";
 
@@ -25,7 +26,9 @@ const UsersTable = (props) => {
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                             >
                                 <TableCell component="th" scope="row">
-                                    {row.name}
+                                    <Link underline="hover" component={LinkRouter} to={`/users/${row.id}`}>
+                                        {row.name}
+                                    </Link>
                                 </TableCell>
                                 <TableCell align="right">{row.email}</TableCell>
                             </TableRow>
