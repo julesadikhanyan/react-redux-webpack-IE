@@ -9,6 +9,7 @@ module.exports = {
     },
     output: {
         path: path.join(__dirname, "./dist"),
+        publicPath: "/",
         filename: "index_bundle.js"
     },
     module: {
@@ -31,5 +32,8 @@ module.exports = {
             template: "./public/index.html"
         }),
         new CleanWebpackPlugin()
-    ]
+    ],
+    devServer: {
+        historyApiFallback: true
+    }
 }
