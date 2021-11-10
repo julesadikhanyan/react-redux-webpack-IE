@@ -28,6 +28,16 @@ const postReducer = (state = initialState, action) => {
                 userDetails: {},
                 postDetails: {}
             }
+        case types.CLEAR_STORE_POST:
+            return {
+                loading: false,
+                users: [],
+                posts: [],
+                error: "",
+                pages: 0,
+                userDetails: {},
+                postDetails: {}
+            }
         default: return state
     }
 }

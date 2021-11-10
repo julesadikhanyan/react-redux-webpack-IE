@@ -37,6 +37,15 @@ const usersReducer = (state = initialState, action) => {
                 userDetails: {},
                 postDetails: {}
             }
+        case types.CLEAR_STORE_USERS:
+            return {
+                loading: false,
+                users: [],
+                posts: [],
+                error: "",
+                pages: 0,
+                userDetails: {}
+            }
         default: return state
     }
 }

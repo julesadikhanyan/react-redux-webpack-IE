@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 
 import { fetchUsers } from "../../redux/users/actions";
 import UsersTable from "../../components/UsersTable";
+import { CLEAR_STORE_USERS } from "../../redux/users/actionsType";
 
 const Users = () => {
     const dispatch = useDispatch();
@@ -12,6 +13,9 @@ const Users = () => {
 
     useEffect(() => {
         dispatch(fetchUsers(1));
+        return () => {
+            dispatch({ type: CLEAR_STORE_USERS })
+        }
     }, []);
 
     const fetch = (page) => {

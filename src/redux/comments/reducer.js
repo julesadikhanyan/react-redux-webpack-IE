@@ -1,43 +1,48 @@
 import * as types from "./actionsType";
-
 import { initialState } from "../users/reducer";
 
-const userReducer = (state = initialState, action) => {
+const commentsReducer = (state = initialState, action) => {
     switch (action.type) {
-        case types.FETCH_USER_REQUEST:
+        case types.FETCH_COMMENTS_REQUEST:
             return {
                 ...state,
-                loading: true,
+                loading: true
             }
-        case types.FETCH_USER_SUCCESS:
+        case types.FETCH_COMMENTS_SUCCESS:
             return {
                 loading: false,
                 users: [],
                 posts: [],
                 error: "",
-                pages: action.pages,
-                userDetails: action.userDetails
+                pages: 0,
+                userDetails: {},
+                postDetails: {},
+                postComments: action.postComments
             }
-        case types.FETCH_USER_FAILURE:
+        case types.FETCH_COMMENTS_FAILURE:
             return {
                 loading: false,
                 users: [],
                 posts: [],
                 error: action.error,
                 pages: 0,
-                userDetails: {}
+                userDetails: {},
+                postDetails: {},
+                postComments: []
             }
-        case types.CLEAR_STORE_USER:
+        case types.CLEAR_STORE_COMMENTS:
             return {
                 loading: false,
                 users: [],
                 posts: [],
                 error: "",
                 pages: 0,
-                userDetails: {}
+                userDetails: {},
+                postDetails: {},
+                postComments: []
             }
         default: return state
     }
 }
 
-export default userReducer;
+export default commentsReducer;

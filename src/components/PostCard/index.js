@@ -8,7 +8,7 @@ const PostCard = (props) => {
                 <Typography gutterBottom variant="h5" component="div">
                     {props.postDetails.title}
                 </Typography>
-                <Typography variant="body2" color="text.secondary">
+                <Typography variant="body2" color="secondary">
                     {props.postDetails.body}
                 </Typography>
             </CardContent>

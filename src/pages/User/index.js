@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom/cjs/react-router-dom";
 
 import UserCard from "../../components/UserCard";
 import { fetchUser } from "../../redux/user/actions";
+import { CLEAR_STORE_USER } from "../../redux/user/actionsType";
 
 const User = () => {
     const params = useParams();
@@ -11,6 +12,9 @@ const User = () => {
 
     useEffect(() => {
         dispatch(fetchUser(params));
+        return () => {
+            dispatch({ type: CLEAR_STORE_USER });
+        }
     }, []);
 
     const userDetails = useSelector(state => state.userReducer.userDetails);

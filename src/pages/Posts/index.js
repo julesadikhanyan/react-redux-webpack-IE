@@ -4,13 +4,16 @@ import { useSelector } from "react-redux";
 
 import { fetchPosts } from "../../redux/posts/actions";
 import PostsTable from "../../components/PostsTable";
-
+import { CLEAR_STORE_POSTS } from "../../redux/posts/actionsType";
 
 const Posts = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(fetchPosts(1));
+        return () => {
+            dispatch({ type: CLEAR_STORE_POSTS })
+        }
     }, []);
 
     const fetch = (page) => {
