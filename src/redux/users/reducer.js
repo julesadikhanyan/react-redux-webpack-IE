@@ -7,7 +7,8 @@ export const initialState = {
     error: "",
     pages: 0,
     userDetails: {},
-    postDetails: {}
+    postDetails: {},
+    userPosts: []
 }
 
 const usersReducer = (state = initialState, action) => {

@@ -23,6 +23,27 @@ export const fetchUserFailure = (error) => {
     }
 }
 
+export const fetchUserPostsRequest = () => {
+    return {
+        type: types.FETCH_USER_POSTS_REQUEST
+    }
+}
+
+export const fetchUserPostsSuccess = (userPosts) => {
+    return {
+        type: types.FETCH_USER_POSTS_SUCCESS,
+        users: [],
+        pages: 0,
+        userPosts: userPosts
+    }
+}
+
+export const fetchUserPostsFailure = (error) => {
+    return {
+        type: types.FETCH_USER_POSTS_FAILURE,
+        error: error
+    }
+}
 
 export function fetchUser(id) {
     return function (dispatch) {
@@ -31,6 +52,18 @@ export function fetchUser(id) {
             .then(response => {
                 const user = response.data.data;
                 dispatch(fetchUserSuccess(user));
+            })
+            .then(() => {
+                dispatch(fetchUserPostsRequest());
+                axios.get(`https://gorest.co.in/public/v1/users/${id.id}/posts`)
+                    .then(response => {
+                        const posts = response.data.data;
+                        dispatch(fetchUserPostsSuccess(posts));
+                    })
+                    .catch(error => {
+                        const message = error.message;
+                        dispatch(fetchUserPostsFailure(message));
+                    });
             })
             .catch(error => {
                 const message = error.message;

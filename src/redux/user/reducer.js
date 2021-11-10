@@ -36,6 +36,36 @@ const userReducer = (state = initialState, action) => {
                 pages: 0,
                 userDetails: {}
             }
+        case types.FETCH_USER_POSTS_REQUEST:
+            return {
+                ...state,
+                loading: true,
+            }
+        case types.FETCH_USER_POSTS_SUCCESS:
+            return {
+                ...state,
+                userPosts: action.userPosts
+            }
+        case types.FETCH_USER_POSTS_FAILURE:
+            return {
+                loading: false,
+                users: [],
+                posts: [],
+                error: action.error,
+                pages: 0,
+                userDetails: {},
+                userPosts: action.userPosts
+            }
+        case types.CLEAR_STORE_POSTS_USER:
+            return {
+                loading: false,
+                users: [],
+                posts: [],
+                error: "",
+                pages: 0,
+                userDetails: {},
+                userPosts: action.userPosts
+            }
         default: return state
     }
 }
