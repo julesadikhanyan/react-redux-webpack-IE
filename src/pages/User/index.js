@@ -6,6 +6,7 @@ import UserCard from "../../components/UserCard";
 import { fetchUser } from "../../redux/user/actions";
 import {CLEAR_STORE_POSTS_USER, CLEAR_STORE_USER} from "../../redux/user/actionsType";
 import UserPostsTable from "../../components/UserPostsTable";
+import BackButton from "../../components/BackButton";
 
 const User = () => {
     const params = useParams();
@@ -23,16 +24,17 @@ const User = () => {
     const userPosts = useSelector(state => state.userReducer.userPosts);
 
     return (
-        <>
-            {
-                Object.keys(userDetails).length > 0 &&
-                <UserCard userDetails={userDetails}/>
-            }
-            {
-                userPosts && userPosts.length > 0 &&
+            <>
+                <BackButton/>
+                {
+                    Object.keys(userDetails).length > 0 &&
+                    <UserCard userDetails={userDetails}/>
+                }
+                {
+                    userPosts && userPosts.length > 0 &&
                     <UserPostsTable userPosts={userPosts}/>
-            }
-        </>
+                }
+            </>
     )
 };
 

@@ -1,46 +1,33 @@
 import * as types from "./actionsType";
 
-import { initialState } from "../users/reducer";
+export const initialState = {
+    userDetails: {},
+    userPosts: [],
+    userError: ""
+}
 
 const userReducer = (state = initialState, action) => {
     switch (action.type) {
         case types.FETCH_USER_REQUEST:
-            return {
-                ...state,
-                loading: true,
-            }
+            return state
         case types.FETCH_USER_SUCCESS:
             return {
-                loading: false,
-                users: [],
-                posts: [],
-                error: "",
-                pages: action.pages,
+                ...state,
                 userDetails: action.userDetails
             }
         case types.FETCH_USER_FAILURE:
             return {
-                loading: false,
-                users: [],
-                posts: [],
-                error: action.error,
-                pages: 0,
-                userDetails: {}
+                ...state,
+                userError: action.userError
             }
         case types.CLEAR_STORE_USER:
             return {
-                loading: false,
-                users: [],
-                posts: [],
-                error: "",
-                pages: 0,
-                userDetails: {}
+                userDetails: {},
+                userPosts: [],
+                userError: ""
             }
         case types.FETCH_USER_POSTS_REQUEST:
-            return {
-                ...state,
-                loading: true,
-            }
+            return state
         case types.FETCH_USER_POSTS_SUCCESS:
             return {
                 ...state,
@@ -48,23 +35,14 @@ const userReducer = (state = initialState, action) => {
             }
         case types.FETCH_USER_POSTS_FAILURE:
             return {
-                loading: false,
-                users: [],
-                posts: [],
-                error: action.error,
-                pages: 0,
-                userDetails: {},
-                userPosts: action.userPosts
+                ...state,
+                userError: action.userError,
             }
         case types.CLEAR_STORE_POSTS_USER:
             return {
-                loading: false,
-                users: [],
-                posts: [],
-                error: "",
-                pages: 0,
                 userDetails: {},
-                userPosts: action.userPosts
+                userPosts: [],
+                userError: ""
             }
         default: return state
     }

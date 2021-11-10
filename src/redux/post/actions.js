@@ -18,7 +18,7 @@ export const fetchPostSuccess = (postDetails) => {
 export const fetchPostFailure = (error) => {
     return {
         type: types.FETCH_POST_FAILURE,
-        error: error
+        postError: error
     }
 }
 

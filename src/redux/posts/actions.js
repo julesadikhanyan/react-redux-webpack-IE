@@ -12,7 +12,7 @@ export const fetchPostsSuccess = (posts, pages) => {
     return {
         type: types.FETCH_POSTS_SUCCESS,
         posts: posts,
-        pages: pages
+        postsPages: pages
     }
 }
 
@@ -20,6 +20,13 @@ export const fetchPostsFailure = (error) => {
     return {
         type: types.FETCH_POSTS_FAILURE,
         error: error
+    }
+}
+
+export const setActivePostsPage = (page) => {
+    return {
+        type: types.SET_ACTIVE_POSTS_PAGE,
+        activePostsPage: page
     }
 }
 

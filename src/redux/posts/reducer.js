@@ -1,42 +1,37 @@
 import * as types from "./actionsType";
 
-import { initialState } from "../users/reducer";
-
+export const initialState = {
+    posts: [],
+    postsPages: 0,
+    postsError: "",
+    activePostsPage: 1
+}
 const postsReducer = (state = initialState, action) => {
     switch (action.type) {
         case types.FETCH_POSTS_REQUEST:
-            return {
-                ...state,
-                loading: true,
-            }
+            return state
         case types.FETCH_POSTS_SUCCESS:
             return {
-                loading: false,
-                users: [],
+                ...state,
                 posts: action.posts,
-                error: "",
-                pages: action.pages,
-                userDetails: {},
-                postDetails: {}
+                postsPages: action.postsPages
             }
         case types.FETCH_POSTS_FAILURE:
             return {
-                loading: false,
-                users: [],
-                posts: [],
-                error: action.error,
-                pages: 0,
-                userDetails: {},
-                postDetails: {}
+                ...state,
+                postsError: action.postsError,
             }
         case types.CLEAR_STORE_POSTS:
             return {
-                loading: false,
-                users: [],
+                ...state,
                 posts: [],
-                error: "",
-                pages: 0,
-                userDetails: {}
+                postsPages: 0,
+                postsError: ""
+            }
+        case types.SET_ACTIVE_POSTS_PAGE:
+            return {
+                ...state,
+                activePostsPage: action.activePostsPage
             }
         default: return state
     }

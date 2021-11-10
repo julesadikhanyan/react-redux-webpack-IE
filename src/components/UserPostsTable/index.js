@@ -1,9 +1,28 @@
 import React from "react";
-import { Link, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@material-ui/core";
-import { Link as LinkRouter } from "react-router-dom";
+import {
+    makeStyles,
+    Paper,
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TableRow
+} from "@material-ui/core";
+import {useHistory} from "react-router-dom";
+
+const useStyles = makeStyles(() => ({
+    row: {
+        '&:hover': {
+            background: "#eceff1",
+            cursor: "pointer"
+        }
+    }
+}));
 
 const UserPostsTable = (props) => {
-
+    const history = useHistory();
+    const classes = useStyles();
     const userPostsArray = props.userPosts;
 
     return (
@@ -19,16 +38,16 @@ const UserPostsTable = (props) => {
                     <TableBody>
                         {userPostsArray.map((row) => (
                             <TableRow
+                                className={classes.row}
                                 key={row.id}
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                onClick={() => history.push(`/post/${row.id}`)}
                             >
                                 <TableCell component="th" scope="row">
                                     {row.id}
                                 </TableCell>
                                 <TableCell align="right">
-                                    <Link underline="hover" component={LinkRouter} to={`/post/${row.id}`}>
-                                        {row.title}
-                                    </Link>
+                                    {row.title}
                                 </TableCell>
                             </TableRow>
                         ))}

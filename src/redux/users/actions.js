@@ -12,14 +12,21 @@ export const fetchUsersSuccess = (users, pages) => {
     return {
         type: types.FETCH_USERS_SUCCESS,
         users: users,
-        pages: pages
+        usersPages: pages
     }
 }
 
 export const fetchUsersFailure = (error) => {
     return {
         type: types.FETCH_USERS_FAILURE,
-        error: error
+        usersError: error
+    }
+}
+
+export const setActiveUsersPage = (page) => {
+    return {
+        type: types.SET_ACTIVE_USERS_PAGE,
+        activeUsersPage: page
     }
 }
 

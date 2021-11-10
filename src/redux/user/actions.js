@@ -10,8 +10,6 @@ export const fetchUserRequest = () => {
 export const fetchUserSuccess = (userDetails) => {
     return {
         type: types.FETCH_USER_SUCCESS,
-        users: [],
-        pages: 0,
         userDetails: userDetails
     }
 }
@@ -32,8 +30,6 @@ export const fetchUserPostsRequest = () => {
 export const fetchUserPostsSuccess = (userPosts) => {
     return {
         type: types.FETCH_USER_POSTS_SUCCESS,
-        users: [],
-        pages: 0,
         userPosts: userPosts
     }
 }

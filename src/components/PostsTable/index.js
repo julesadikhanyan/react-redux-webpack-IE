@@ -1,13 +1,32 @@
 import React from "react";
-import {Link, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@material-ui/core";
-import { Link as LinkRouter } from "react-router-dom";
+import {useHistory} from "react-router-dom";
+import {
+    makeStyles,
+    Paper,
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TableRow
+} from "@material-ui/core";
 
 import Pages from "../Pagination";
 
-const PostsTable = (props) => {
+const useStyles = makeStyles(() => ({
+    row: {
+        '&:hover': {
+            background: "#eceff1",
+            cursor: "pointer"
+        }
+    }
+}));
 
+const PostsTable = (props) => {
+    const classes = useStyles();
     const postsArray = props.posts;
     const pages = props.pages;
+    const history = useHistory();
 
     return (
         <>
@@ -22,23 +41,23 @@ const PostsTable = (props) => {
                     <TableBody>
                         {postsArray.map((row) => (
                             <TableRow
+                                className={classes.row}
                                 key={row.id}
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                onClick={() => history.push(`/post/${row.id}`)}
                             >
                                 <TableCell component="th" scope="row">
                                     {row.id}
                                 </TableCell>
                                 <TableCell align="right">
-                                    <Link underline="hover" component={LinkRouter} to={`/post/${row.id}`}>
                                         {row.title}
-                                    </Link>
                                 </TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
                 </Table>
             </TableContainer>
-            <Pages pages={pages} fetch={props.fetch}/>
+            <Pages pages={pages} fetch={props.fetch} activePage={props.activePostsPage}/>
         </>
     );
 }

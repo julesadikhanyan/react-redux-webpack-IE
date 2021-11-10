@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
 const Pages = (props) => {
     const classes = useStyles();
 
-    const [page, setPage] = React.useState(1);
+    const [page, setPage] = React.useState(props.activePage);
 
     const handleChange = (event, value) => {
         setPage(value);
