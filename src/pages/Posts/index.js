@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import {fetchPosts, setActivePostsPage} from "../../redux/posts/actions";
 import PostsTable from "../../components/PostsTable";
 import { CLEAR_STORE_POSTS } from "../../redux/posts/actionsType";
+import CreatePostButton from "../../components/CreatePostButton";
 
 const Posts = () => {
     const dispatch = useDispatch();
@@ -27,6 +28,7 @@ const Posts = () => {
 
     return (
         <>
+            <CreatePostButton/>
             {
                 posts.length > 0 &&
                 <PostsTable posts={posts} pages={pages} activePostsPage={activePostsPage} fetch={fetch}/>

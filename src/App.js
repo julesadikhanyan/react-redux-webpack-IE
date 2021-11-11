@@ -7,6 +7,7 @@ import Users from "./pages/Users";
 import Posts from "./pages/Posts";
 import User from "./pages/User";
 import Post from "./pages/Post";
+import CreatePost from "./pages/CreatePost";
 
 const App = () => {
     return (
@@ -25,6 +26,9 @@ const App = () => {
                 </Route>
                 <Route exact path="/post/:id">
                     <Post/>
+                </Route>
+                <Route exact path="/new_post">
+                    <CreatePost/>
                 </Route>
             </Switch>
         </BrowserRouter>
