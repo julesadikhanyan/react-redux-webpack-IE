@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import {fetchUsers, setActiveUsersPage} from "../../redux/users/actions";
 import UsersTable from "../../components/UsersTable";
 import { CLEAR_STORE_USERS } from "../../redux/users/actionsType";
+import Loading from "../../components/Loading";
 
 const Users = () => {
     const dispatch = useDispatch();
@@ -26,8 +27,9 @@ const Users = () => {
     return (
         <>
             {
-                users.length > 0 &&
-                <UsersTable users={users} pages={pages} activeUsersPage={activeUsersPage} fetch={fetch}/>
+                users.length > 0 ?
+                <UsersTable users={users} pages={pages} activeUsersPage={activeUsersPage} fetch={fetch}/> :
+                    <Loading/>
             }
         </>
     )

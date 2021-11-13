@@ -8,11 +8,27 @@ import Posts from "./pages/Posts";
 import User from "./pages/User";
 import Post from "./pages/Post";
 import CreatePost from "./pages/CreatePost";
+import {useDispatch, useSelector} from "react-redux";
+import {setAccessToken} from "./redux/token/actions";
 
 const App = () => {
+    const dispatch = useDispatch();
+
+    const token = useSelector(state => state.tokenReducer.token);
+
+    const deleteToken = () => {
+        dispatch(setAccessToken(""));
+        localStorage.removeItem("token");
+    }
+
+    const setToken = (token) => {
+        dispatch(setAccessToken(token));
+        localStorage.setItem("token", token);
+    }
+
     return (
         <BrowserRouter>
-            <Header/>
+            <Header token={token} deleteToken={deleteToken} setToken={setToken}/>
             <Switch>
                 <Route exact path="/" render={() => <Redirect to="/users" />} />
                 <Route exact path="/users">

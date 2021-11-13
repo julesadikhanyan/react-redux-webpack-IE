@@ -1,7 +1,7 @@
 import React from "react";
 import PostForm from "../../components/PostForm";
 import {useDispatch} from "react-redux";
-import {fetchCreatePost} from "../../redux/creatPost/actions";
+import {fetchCreatePost} from "../../redux/createPost/actions";
 
 const CreatePost = () => {
     const dispatch = useDispatch();

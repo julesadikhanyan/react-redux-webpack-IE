@@ -5,7 +5,8 @@ import postsReducer from "./posts/reducer";
 import postReducer from "./post/reducer";
 import userReducer from "./user/reducer";
 import commentsReducer from "./comments/reducer";
-import createPostReducer from "./creatPost/reducer";
+import createPostReducer from "./createPost/reducer";
+import tokenReducer from "./token/reducer";
 
 export default combineReducers({
     usersReducer,
@@ -13,5 +14,6 @@ export default combineReducers({
     postReducer,
     userReducer,
     commentsReducer,
-    createPostReducer
+    createPostReducer,
+    tokenReducer
 });

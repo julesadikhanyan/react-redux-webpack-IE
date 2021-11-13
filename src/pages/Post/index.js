@@ -9,6 +9,7 @@ import { fetchComments } from "../../redux/comments/actions";
 import { CLEAR_STORE_COMMENTS } from "../../redux/comments/actionsType";
 import Comment from "../../components/Comment";
 import BackButton from "../../components/BackButton";
+import Loading from "../../components/Loading";
 
 const Post = () => {
     const params = useParams();
@@ -39,8 +40,9 @@ const Post = () => {
         <>
             <BackButton/>
             {
-                Object.keys(postDetails).length > 0 &&
-                <PostCard postDetails={postDetails} fetch={fetch}/>
+                Object.keys(postDetails).length > 0 ?
+                <PostCard postDetails={postDetails} fetch={fetch}/> :
+                    <Loading/>
             }
             {
                 postComments ? postComments.map((comment) =>

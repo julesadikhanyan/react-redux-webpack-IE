@@ -1,0 +1,1 @@
+export const REGEX_ACCESS_TOKEN = /^[0-9A-F]{64}$/i;
