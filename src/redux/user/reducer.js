@@ -19,7 +19,7 @@ const userReducer = (state = initialState, action) => {
             return {
                 ...state,
                 userDetails: action.userDetails,
-                loading: false
+                loading: true
             }
         case types.FETCH_USER_FAILURE:
             return {

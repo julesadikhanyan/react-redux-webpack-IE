@@ -8,17 +8,28 @@ import {
     TableCell,
     TableContainer,
     TableHead,
-    TableRow
+    TableRow, Typography
 } from "@material-ui/core";
 
 import Pages from "../Pagination";
+import {blue} from "@material-ui/core/colors";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
     row: {
         '&:hover': {
-            background: "#eceff1",
+            background: blue[50],
             cursor: "pointer"
         }
+    },
+    tableContainer: {
+        borderRadius: 15,
+        minWidth: 600,
+        marginTop: 10
+    },
+    tableHeaderCell: {
+        fontWeight: "bold",
+        backgroundColor: theme.palette.info.light,
+        color: theme.palette.getContrastText(theme.palette.info.light),
     }
 }));
 
@@ -30,12 +41,12 @@ const PostsTable = (props) => {
 
     return (
         <>
-            <TableContainer component={Paper}>
+            <TableContainer className={classes.tableContainer} component={Paper}>
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
                     <TableHead>
                         <TableRow>
-                            <TableCell>ID</TableCell>
-                            <TableCell align="right">Title</TableCell>
+                            <TableCell className={classes.tableHeaderCell}>ID</TableCell>
+                            <TableCell className={classes.tableHeaderCell} align="right">Title</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -47,10 +58,10 @@ const PostsTable = (props) => {
                                 onClick={() => history.push(`/post/${row.id}`)}
                             >
                                 <TableCell component="th" scope="row">
-                                    {row.id}
+                                    <Typography>{row.id}</Typography>
                                 </TableCell>
                                 <TableCell align="right">
-                                        {row.title}
+                                    <Typography>{row.title}</Typography>
                                 </TableCell>
                             </TableRow>
                         ))}

@@ -1,13 +1,13 @@
 import React, {useState} from "react";
 import {AppBar, Button, makeStyles, TextField, Toolbar} from "@material-ui/core";
 import {useHistory, useLocation} from "react-router-dom";
-import {blueGrey} from "@material-ui/core/colors";
+import {blue} from "@material-ui/core/colors";
 import {REGEX_ACCESS_TOKEN} from "../../../constants";
 import { useMediaQuery } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
     appBar: {
-        background: blueGrey[50],
+        background: blue[50],
         boxShadow: "none",
         padding: 0
     },

@@ -10,14 +10,14 @@ import {
     TableRow, Typography
 } from "@material-ui/core";
 import {useHistory} from "react-router-dom";
-import {blueGrey} from "@material-ui/core/colors";
+import {blue} from "@material-ui/core/colors";
 
 import Pages from "../Pagination";
 
 const useStyles = makeStyles((theme) => ({
     row: {
         '&:hover': {
-            background: blueGrey[50],
+            background: blue[50],
             cursor: "pointer"
         }
     },

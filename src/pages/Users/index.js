@@ -63,10 +63,13 @@ const Users = () => {
             <div className={classes.usersList}>
                 <Typography className={classes.usersTitle} variant="h4">Users List</Typography>
                 <Typography>Page: {activeUsersPage}</Typography>
-                <UsersTable
-                    users={users} pages={pages}
-                    activeUsersPage={activeUsersPage}
-                    fetch={fetch}/>
+                {
+                    users.length > 0 &&
+                    <UsersTable
+                        users={users} pages={pages}
+                        activeUsersPage={activeUsersPage}
+                        fetch={fetch}/>
+                }
             </div>
         </>
     )
