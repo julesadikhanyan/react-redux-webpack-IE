@@ -7,35 +7,47 @@ import {
     TableCell,
     TableContainer,
     TableHead,
-    TableRow
+    TableRow, Typography
 } from "@material-ui/core";
 import {useHistory} from "react-router-dom";
+import {blueGrey} from "@material-ui/core/colors";
 
 import Pages from "../Pagination";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
     row: {
         '&:hover': {
-            background: "#eceff1",
+            background: blueGrey[50],
             cursor: "pointer"
         }
+    },
+    tableContainer: {
+        borderRadius: 15,
+        minWidth: 600,
+        marginTop: 10
+    },
+    tableHeaderCell: {
+        fontWeight: "bold",
+        backgroundColor: theme.palette.info.light,
+        color: theme.palette.getContrastText(theme.palette.info.light),
     }
+
 }));
 const UsersTable = (props) => {
     const classes = useStyles();
     const history = useHistory();
-
     const usersArray = props.users;
     const pages = props.pages;
 
     return (
         <>
-            <TableContainer component={Paper}>
+
+            <TableContainer className={classes.tableContainer} component={Paper}>
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
                     <TableHead>
                         <TableRow>
-                            <TableCell>Name</TableCell>
-                            <TableCell align="right">Email</TableCell>
+                            <TableCell className={classes.tableHeaderCell}>Name</TableCell>
+                            <TableCell className={classes.tableHeaderCell} align="right">Email</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -47,9 +59,11 @@ const UsersTable = (props) => {
                                 onClick={() => history.push(`/users/${row.id}`)}
                             >
                                 <TableCell component="th" scope="row">
-                                        {row.name}
+                                    <Typography>{row.name}</Typography>
                                 </TableCell>
-                                <TableCell align="right">{row.email}</TableCell>
+                                <TableCell align="right">
+                                    <Typography>{row.email}</Typography>
+                                </TableCell>
                             </TableRow>
                         ))}
                     </TableBody>

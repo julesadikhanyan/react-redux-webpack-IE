@@ -5,12 +5,33 @@ import {fetchUsers, setActiveUsersPage} from "../../redux/users/actions";
 import UsersTable from "../../components/UsersTable";
 import { CLEAR_STORE_USERS } from "../../redux/users/actionsType";
 import Loading from "../../components/Loading";
+import {makeStyles, Typography} from "@material-ui/core";
+import {Alert, AlertTitle} from "@material-ui/lab";
+
+const useStyles = makeStyles(() => ({
+    usersList: {
+        margin: "auto",
+        width: "60vw",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        flexDirection: "column",
+        marginTop: "20px"
+    },
+    usersTitle: {
+        fontWeight: "bold",
+    }
+}));
 
 const Users = () => {
+    const classes = useStyles();
+
     const dispatch = useDispatch();
     const users = useSelector(state => state.usersReducer.users);
     const pages = useSelector(state => state.usersReducer.usersPages);
     const activeUsersPage = useSelector(state => state.usersReducer.activeUsersPage);
+    const loading = useSelector(state => state.usersReducer.loading);
+    const error = useSelector(state => state.usersReducer.usersError);
 
     useEffect(() => {
         dispatch(fetchUsers(activeUsersPage));
@@ -24,13 +45,29 @@ const Users = () => {
         dispatch(fetchUsers(page));
     }
 
+    if (loading) {
+        return <Loading/>
+    }
+
+    if (error === "Network Error") {
+        return (
+            <Alert severity="error">
+                <AlertTitle>Error</AlertTitle>
+                {error} - <strong>check your internet connection and restart the page!</strong>
+            </Alert>
+        )
+    }
     return (
         <>
-            {
-                users.length > 0 ?
-                <UsersTable users={users} pages={pages} activeUsersPage={activeUsersPage} fetch={fetch}/> :
-                    <Loading/>
-            }
+            <div className={classes.usersList}>
+                <Typography className={classes.usersTitle} variant="h4">Users List</Typography>
+                <Typography>Page: {activeUsersPage}</Typography>
+                <UsersTable
+                    className={classes.usersTable}
+                    users={users} pages={pages}
+                    activeUsersPage={activeUsersPage}
+                    fetch={fetch}/>
+            </div>
         </>
     )
 }

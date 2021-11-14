@@ -4,23 +4,29 @@ export const initialState = {
     users: [],
     usersError: "",
     usersPages: 0,
-    activeUsersPage: 1
+    activeUsersPage: 1,
+    loading: true
 }
 
 const usersReducer = (state = initialState, action) => {
     switch (action.type) {
         case types.FETCH_USERS_REQUEST:
-            return state
+            return {
+                ...state,
+                loading: true
+            }
         case types.FETCH_USERS_SUCCESS:
             return {
                 ...state,
                 users: action.users,
-                usersPages: action.usersPages
+                usersPages: action.usersPages,
+                loading: false
             }
         case types.FETCH_USERS_FAILURE:
             return {
                 ...state,
-                usersError: action.usersError
+                usersError: action.usersError,
+                loading: false
             }
         case types.CLEAR_STORE_USERS:
             return {

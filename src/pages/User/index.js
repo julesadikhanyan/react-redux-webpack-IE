@@ -29,7 +29,10 @@ const User = () => {
                 <BackButton/>
                 {
                     Object.keys(userDetails).length > 0 ?
-                    <UserCard userDetails={userDetails}/> :
+                        <div>
+                            <UserCard userDetails={userDetails}/>
+                        </div>
+                     :
                     <Loading/>
                 }
                 {
