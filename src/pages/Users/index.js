@@ -16,7 +16,7 @@ const useStyles = makeStyles(() => ({
         justifyContent: "center",
         alignItems: "center",
         flexDirection: "column",
-        marginTop: "20px"
+        marginTop: 20
     },
     usersTitle: {
         fontWeight: "bold",
@@ -49,21 +49,21 @@ const Users = () => {
         return <Loading/>
     }
 
-    if (error === "Network Error") {
+    if (error) {
         return (
             <Alert severity="error">
                 <AlertTitle>Error</AlertTitle>
-                {error} - <strong>check your internet connection and restart the page!</strong>
+                <strong>{error}</strong>
             </Alert>
         )
     }
+
     return (
         <>
             <div className={classes.usersList}>
                 <Typography className={classes.usersTitle} variant="h4">Users List</Typography>
                 <Typography>Page: {activeUsersPage}</Typography>
                 <UsersTable
-                    className={classes.usersTable}
                     users={users} pages={pages}
                     activeUsersPage={activeUsersPage}
                     fetch={fetch}/>

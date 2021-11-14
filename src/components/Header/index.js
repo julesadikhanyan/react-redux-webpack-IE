@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
         display: "flex"
     },
     field: {
-        width: "300px",
+        width: 300,
     },
 }));
 
@@ -41,7 +41,6 @@ const Header = (props) => {
     const [token, setToken] = useState("");
     const matches = useMediaQuery('(min-width:1270px)');
 
-    console.log(props.token);
     const handleSubmit = (event) => {
         event.preventDefault();
         props.setToken(token);

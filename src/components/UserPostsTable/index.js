@@ -10,13 +10,23 @@ import {
     TableRow
 } from "@material-ui/core";
 import {useHistory} from "react-router-dom";
+import {blueGrey} from "@material-ui/core/colors";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
     row: {
         '&:hover': {
-            background: "#eceff1",
+            background: blueGrey[50],
             cursor: "pointer"
         }
+    },
+    tableHeaderCell: {
+        fontWeight: "bold",
+        backgroundColor: theme.palette.info.light,
+        color: theme.palette.getContrastText(theme.palette.info.light),
+    },
+    tableContainer: {
+        minWidth: 500,
+        marginTop: 20
     }
 }));
 
@@ -27,12 +37,12 @@ const UserPostsTable = (props) => {
 
     return (
         <>
-            <TableContainer component={Paper}>
-                <Table sx={{ minWidth: 650 }} aria-label="simple table">
+            <TableContainer className={classes.tableContainer} component={Paper}>
+                <Table>
                     <TableHead>
                         <TableRow>
-                            <TableCell>ID</TableCell>
-                            <TableCell align="right">Title</TableCell>
+                            <TableCell className={classes.tableHeaderCell}>ID</TableCell>
+                            <TableCell className={classes.tableHeaderCell} align="right">Title</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -40,10 +50,9 @@ const UserPostsTable = (props) => {
                             <TableRow
                                 className={classes.row}
                                 key={row.id}
-                                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                 onClick={() => history.push(`/post/${row.id}`)}
                             >
-                                <TableCell component="th" scope="row">
+                                <TableCell>
                                     {row.id}
                                 </TableCell>
                                 <TableCell align="right">

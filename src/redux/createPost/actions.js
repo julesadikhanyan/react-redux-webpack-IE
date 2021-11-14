@@ -31,7 +31,7 @@ export function fetchCreatePost(post) {
         dispatch(fetchCreatePostRequest());
         authAxios.post(`https://gorest.co.in/public/v1/posts`, {
             user: "user",
-            user_id: "1612",
+            user_id: "1866",
             title: post.title,
             body: post.text
         })

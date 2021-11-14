@@ -40,8 +40,8 @@ export function fetchUsers(page) {
                 dispatch(fetchUsersSuccess(users, pages));
             })
             .catch(error => {
-                const message = error.message;
-                dispatch(fetchUsersFailure(message));
+                    const message = error.message;
+                    dispatch(fetchUsersFailure(message));
             });
     }
 }

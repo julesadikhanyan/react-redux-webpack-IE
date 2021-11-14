@@ -14,10 +14,10 @@ export const fetchUserSuccess = (userDetails) => {
     }
 }
 
-export const fetchUserFailure = (error) => {
+export const fetchUserFailure = (userError) => {
     return {
         type: types.FETCH_USER_FAILURE,
-        error: error
+        userError: userError
     }
 }
 
@@ -34,10 +34,10 @@ export const fetchUserPostsSuccess = (userPosts) => {
     }
 }
 
-export const fetchUserPostsFailure = (error) => {
+export const fetchUserPostsFailure = (userPostsError) => {
     return {
         type: types.FETCH_USER_POSTS_FAILURE,
-        error: error
+        userPostsError: userPostsError
     }
 }
 
