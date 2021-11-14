@@ -7,19 +7,24 @@ const useStyles = makeStyles((theme) => ({
         flexGrow: 1,
         overflow: 'hidden',
         padding: theme.spacing(0, 3),
+        width: "100%"
     },
     paper: {
         margin: `${theme.spacing(1)}px auto`,
         padding: theme.spacing(2),
+        border: `1px solid ${theme.palette.info.light}`
     },
     purple: {
         color: theme.palette.getContrastText(deepPurple[500]),
         backgroundColor: deepPurple[500],
-    }
+    },
+    avatar: {
+        backgroundColor: theme.palette.info.light,
+        marginLeft: 0
+    },
 }));
 
 const Comment = (props) => {
-    const letter = props.comment.name[0];
     const classes = useStyles();
 
     return (
@@ -27,11 +32,11 @@ const Comment = (props) => {
             <Paper className={classes.paper}>
                 <Grid container wrap="nowrap" spacing={2}>
                     <Grid item>
-                        <Avatar className={classes.purple}>{letter}</Avatar>
+                        <Avatar className={classes.avatar}/>
                     </Grid>
                     <Grid item xs>
-                        <Typography>{props.comment.name}</Typography>
-                        <Typography color="secondary">{props.comment.body}</Typography>
+                        <Typography variant="h6">{props.comment.name}</Typography>
+                        <Typography>{props.comment.body}</Typography>
                     </Grid>
                 </Grid>
             </Paper>

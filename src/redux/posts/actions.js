@@ -16,10 +16,10 @@ export const fetchPostsSuccess = (posts, pages) => {
     }
 }
 
-export const fetchPostsFailure = (error) => {
+export const fetchPostsFailure = (postsError) => {
     return {
         type: types.FETCH_POSTS_FAILURE,
-        error: error
+        postsError: postsError
     }
 }
 

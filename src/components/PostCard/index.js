@@ -1,14 +1,31 @@
 import React from "react";
-import { Card, CardContent, Typography } from "@material-ui/core";
+import {Card, CardContent, makeStyles, Typography} from "@material-ui/core";
+
+const useStyles = makeStyles((theme) => ({
+    postCard: {
+        margin: "20px 0 20px 0",
+        border: `3px solid ${theme.palette.info.light}`,
+        boxShadow: "none",
+        width: "60vw",
+        minWidth: 500,
+        boxSizing: "border-box"
+    },
+    avatar: {
+        backgroundColor: theme.palette.info.light,
+        marginLeft: 0
+    }
+}));
 
 const PostCard = (props) => {
+    const classes = useStyles();
+
     return (
-        <Card sx={{ maxWidth: 345 }}>
+        <Card className={classes.postCard}>
             <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
+                <Typography align="center" gutterBottom variant="h5" component="div">
                     {props.postDetails.title}
                 </Typography>
-                <Typography variant="body2" color="secondary">
+                <Typography align="justify" variant="body2">
                     {props.postDetails.body}
                 </Typography>
             </CardContent>

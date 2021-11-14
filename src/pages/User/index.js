@@ -13,7 +13,7 @@ import {Alert, AlertTitle} from "@material-ui/lab";
 
 const useStyles = makeStyles(() => ({
     userContainer: {
-        width: "70vw",
+        width: "60vw",
         margin: "auto",
         marginTop: 20
     },
