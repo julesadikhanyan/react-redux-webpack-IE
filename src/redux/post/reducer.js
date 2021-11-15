@@ -5,7 +5,11 @@ export const initialState = {
     postError: "",
     postComments: [],
     postCommentsError: "",
-    loading: true
+    loading: true,
+    createPostError: "",
+    token: localStorage.getItem("token"),
+    postID: -1,
+    isSuccess: false
 }
 
 const postReducer = (state = initialState, action) => {
@@ -29,6 +33,7 @@ const postReducer = (state = initialState, action) => {
             }
         case types.CLEAR_STORE_POST:
             return {
+                ...state,
                 postDetails: {},
                 postErrors: "",
                 postComments: [],
@@ -49,7 +54,32 @@ const postReducer = (state = initialState, action) => {
             return {
                 ...state,
                 postCommentsError: action.postCommentsError,
-                loading: false
+
+            }
+        case types.FETCH_CREATE_POST_REQUEST:
+            return {
+                ...state
+            }
+        case types.FETCH_CREATE_POST_SUCCESS:
+            return {
+                ...state,
+                postID: action.postID,
+                isSuccess: true
+            }
+        case types.FETCH_CREATE_POST_FAILURE:
+            return {
+                ...state,
+                createPostError: action.createPostError
+            }
+        case types.SET_ACCESS_TOKEN:
+            return {
+                token: action.token
+            }
+        case types.CLEAN_CREATE_POST:
+            return {
+                ...state,
+                createPostError: "",
+                isSuccess: false
             }
         default: return state
     }

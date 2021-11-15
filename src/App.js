@@ -9,12 +9,12 @@ import User from "./pages/User";
 import Post from "./pages/Post";
 import CreatePost from "./pages/CreatePost";
 import {useDispatch, useSelector} from "react-redux";
-import {setAccessToken} from "./redux/token/actions";
+import {setAccessToken} from "./redux/post/actions";
 
 const App = () => {
     const dispatch = useDispatch();
 
-    const token = useSelector(state => state.tokenReducer.token);
+    const token = useSelector(state => state.postReducer.token);
 
     const deleteToken = () => {
         dispatch(setAccessToken(""));

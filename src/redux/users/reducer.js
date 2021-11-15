@@ -5,7 +5,8 @@ export const initialState = {
     usersError: "",
     usersPages: 0,
     activeUsersPage: 1,
-    loading: true
+    loading: true,
+    userID: -1
 }
 
 const usersReducer = (state = initialState, action) => {
@@ -20,7 +21,8 @@ const usersReducer = (state = initialState, action) => {
                 ...state,
                 users: action.users,
                 usersPages: action.usersPages,
-                loading: false
+                loading: false,
+                userID: action.users[0].id
             }
         case types.FETCH_USERS_FAILURE:
             return {

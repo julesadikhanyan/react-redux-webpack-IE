@@ -18,7 +18,8 @@ const useStyles = makeStyles(() => ({
         justifyContent: "center",
         alignItems: "center",
         flexDirection: "column",
-        marginTop: 20
+        marginTop: 20,
+        marginBottom: 20
     },
     postsTitle: {
         fontWeight: "bold",
