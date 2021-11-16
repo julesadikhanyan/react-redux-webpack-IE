@@ -29,8 +29,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const PostForm = (props) => {
-    const [title, setTitle] = React.useState("");
-    const [body, setBody] = React.useState("");
+
+    const [title, setTitle] = React.useState(props.title || "");
+    const [body, setBody] = React.useState(props.body || "");
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -49,6 +50,8 @@ const PostForm = (props) => {
                     variant="outlined"
                     label="Title..."
                     value={title}
+                    multiline
+                    maxRows={4}
                     className={classes.textField}
                     onChange={(e) => setTitle(e.target.value)}
                 />

@@ -7,21 +7,28 @@ const useStyles = makeStyles((theme) => ({
         width: 200,
         backgroundColor: theme.palette.secondary.light,
         color: "white",
-        marginTop: 20,
         '&:hover': {
             backgroundColor: theme.palette.info.light,
         }
     }
 }));
-const CreatePostButton = () => {
+const PostButton = (props) => {
     const classes = useStyles();
     const history = useHistory();
 
+    const historyPush = () => {
+        if (props.postID) {
+            history.push(`/new_post?post_id=${props.postID}`);
+        } else {
+            history.push("/new_post")
+        }
+    }
+
     return (
-        <Button className={classes.button} variant="contained" onClick={() => history.push("/new_post")}>
-            Create new post
+        <Button className={classes.button} variant="contained" onClick={() => historyPush()}>
+            {props.textButton}
         </Button>
     )
 }
 
-export default CreatePostButton;
+export default PostButton;

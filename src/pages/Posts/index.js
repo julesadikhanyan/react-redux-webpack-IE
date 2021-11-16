@@ -5,10 +5,10 @@ import { useSelector } from "react-redux";
 import {fetchPosts, setActivePostsPage} from "../../redux/posts/actions";
 import PostsTable from "../../components/PostsTable";
 import { CLEAR_STORE_POSTS } from "../../redux/posts/actionsType";
-import CreatePostButton from "../../components/CreatePostButton";
 import Loading from "../../components/Loading";
 import {makeStyles, Typography} from "@material-ui/core";
 import {Alert, AlertTitle} from "@material-ui/lab";
+import PostButton from "../../components/PostButton";
 
 const useStyles = makeStyles(() => ({
     postsList: {
@@ -66,7 +66,7 @@ const Posts = () => {
         <div className={classes.postsList}>
             <Typography className={classes.postsTitle} variant="h4">Posts List</Typography>
             <Typography>Page: {activePostsPage}</Typography>
-            <CreatePostButton/>
+            <PostButton textButton="Create new post"/>
             {
                 posts.length > 0 &&
                 <PostsTable

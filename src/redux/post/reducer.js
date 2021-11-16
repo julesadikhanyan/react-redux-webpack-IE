@@ -9,7 +9,8 @@ export const initialState = {
     createPostError: "",
     token: localStorage.getItem("token"),
     postID: -1,
-    isSuccess: false
+    isSuccess: false,
+    editPostError: ""
 }
 
 const postReducer = (state = initialState, action) => {
@@ -31,14 +32,15 @@ const postReducer = (state = initialState, action) => {
                 postError: action.postError,
                 loading: false
             }
-        case types.CLEAR_STORE_POST:
+        case types.CLEAN_POST_STORE: {
             return {
                 ...state,
+                postError: "",
+                createPostError: "",
                 postDetails: {},
-                postErrors: "",
-                postComments: [],
-                postCommentsError: ""
+
             }
+        }
         case types.FETCH_COMMENTS_REQUEST:
             return {
                 ...state,
@@ -73,13 +75,16 @@ const postReducer = (state = initialState, action) => {
             }
         case types.SET_ACCESS_TOKEN:
             return {
+                ...state,
                 token: action.token
             }
         case types.CLEAN_CREATE_POST:
             return {
                 ...state,
                 createPostError: "",
-                isSuccess: false
+                isSuccess: false,
+                postDetails: {},
+                postComments: []
             }
         default: return state
     }

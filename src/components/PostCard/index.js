@@ -7,7 +7,7 @@ const useStyles = makeStyles((theme) => ({
         border: `3px solid ${theme.palette.info.light}`,
         boxShadow: "none",
         width: "60vw",
-        minWidth: 500,
+        minWidth: 300,
         boxSizing: "border-box"
     },
     avatar: {

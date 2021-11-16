@@ -4,12 +4,13 @@ import { useParams } from "react-router-dom/cjs/react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import PostCard from "../../components/PostCard";
-import { CLEAR_STORE_POST } from "../../redux/post/actionsType";
 import Comment from "../../components/Comment";
 import BackButton from "../../components/BackButton";
 import Loading from "../../components/Loading";
 import {makeStyles, Typography} from "@material-ui/core";
 import {Alert, AlertTitle} from "@material-ui/lab";
+import PostButton from "../../components/PostButton";
+import {CLEAN_POST_STORE} from "../../redux/post/actionsType";
 
 const useStyles = makeStyles(() => ({
     postContainer: {
@@ -24,15 +25,17 @@ const useStyles = makeStyles(() => ({
     postCard: {
         margin: "20px 0 20px 0"
     },
-    postDetails: {
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        flexDirection: "column"
-    },
     alert: {
         width: "100%"
-    }
+    },
+    postButton: {
+        width: "100%"
+    },
+    commentTitle: {
+        fontWeight: "bold",
+        textAlign: "center",
+        marginTop: 20
+    },
 }));
 
 const Post = () => {
@@ -41,9 +44,9 @@ const Post = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(fetchPost(params));
+        dispatch(fetchPost(params.id));
         return () => {
-            dispatch({ type: CLEAR_STORE_POST })
+            dispatch({ type: CLEAN_POST_STORE } );
         }
     }, []);
 
@@ -75,7 +78,8 @@ const Post = () => {
                     Object.keys(postDetails).length > 0 &&
                     <PostCard className={classes.postCard} postDetails={postDetails} fetch={fetch}/>
                 }
-                <Typography className={classes.postTitle} variant="h4">Post Comments</Typography>
+                <PostButton postID={postDetails.id} textButton="Edit post" className={classes.postButton}/>
+                <Typography className={classes.commentTitle} variant="h4">Post Comments</Typography>
                 {
                     postComments && postComments.length > 0 ?
                         postComments.map((comment) =>

@@ -1,12 +1,12 @@
 import React, {useEffect} from "react";
 import PostForm from "../../components/PostForm";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchCreatePost} from "../../redux/post/actions";
+import {fetchCreatePost, fetchEditPost, fetchPost} from "../../redux/post/actions";
 import {Link, makeStyles, Typography} from "@material-ui/core";
 import {fetchUsers} from "../../redux/users/actions";
 import {Alert, AlertTitle} from "@material-ui/lab";
 import {CLEAN_CREATE_POST} from "../../redux/post/actionsType";
-import {useHistory} from "react-router-dom";
+import {useHistory, useLocation} from "react-router-dom";
 import BackButton from "../../components/BackButton";
 
 const useStyles = makeStyles(() => ({
@@ -36,18 +36,27 @@ const CreatePost = () => {
     const classes = useStyles();
     const dispatch = useDispatch();
     const history = useHistory();
+    const location = useLocation();
 
     const userID = useSelector(state => state.usersReducer.userID);
     const token = useSelector(state => state.postReducer.token);
     const error = useSelector(state => state.postReducer.createPostError);
     const postID = useSelector(state => state.postReducer.postID);
     const isSuccess = useSelector(state => state.postReducer.isSuccess);
+    const postDetails = useSelector(state => state.postReducer.postDetails);
 
     useEffect(() => {
         if (userID === -1 && token) {
             dispatch(fetchUsers(1));
         }
-    });
+    }, [token]);
+
+    useEffect(() => {
+        const id = location.search.slice(9);
+        if (id !== "") {
+            dispatch(fetchPost(id));
+        }
+    }, []);
 
     useEffect(() => {
         return () => {
@@ -56,8 +65,20 @@ const CreatePost = () => {
     }, []);
 
     const fetch = (post) => {
-        dispatch(fetchCreatePost(token, post, userID));
+        if (postDetails) {
+            dispatch(fetchEditPost(token, post, userID, postDetails.id))
+        } else {
+            dispatch(fetchCreatePost(token, post, userID));
+        }
     };
+
+    const historyPush = () => {
+        if (postDetails) {
+            history.push(`/post/${postDetails.id}`);
+        } else {
+            history.push(`/post/${postID}`);
+        }
+    }
 
     return (
         <div className={classes.postFormContainer}>
@@ -66,7 +87,7 @@ const CreatePost = () => {
                 isSuccess &&
                 <Alert className={classes.alert} severity="success">
                     <AlertTitle>The post was created successfully</AlertTitle>
-                    <Link className={classes.link} onClick={() => history.push(`/post/${postID}`)}>OPEN POST</Link>
+                    <Link className={classes.link} onClick={() => historyPush()}>OPEN POST</Link>
                 </Alert>
             }
             {
@@ -83,7 +104,7 @@ const CreatePost = () => {
                 </Alert>
             }
             <Typography className={classes.postTitle} variant="h4">Post Form</Typography>
-            <PostForm token={token} fetch={fetch}/>
+            <PostForm title={postDetails.title} body={postDetails.body} token={token} fetch={fetch}/>
         </div>
     )
 }

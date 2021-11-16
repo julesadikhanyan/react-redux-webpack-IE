@@ -6,11 +6,10 @@ const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
         overflow: 'hidden',
-        padding: theme.spacing(0, 3),
+        padding: theme.spacing(2, 0),
         width: "100%"
     },
     paper: {
-        margin: `${theme.spacing(1)}px auto`,
         padding: theme.spacing(2),
         border: `1px solid ${theme.palette.info.light}`
     },
