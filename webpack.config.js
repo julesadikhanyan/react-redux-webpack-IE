@@ -34,17 +34,21 @@ module.exports = {
     plugins: [
         new HTMLWebpackPlugin({
             template: "./public/index.html",
-            favicon: "./public/favicon.svg"
+            favicon: "./public/favicon.ico"
         }),
         new CleanWebpackPlugin(),
         new CopyWebpackPlugin({
             patterns: [
-                { from: './public/favicon.svg' },
+                { from: './public/favicon.ico' },
             ]
         })
     ],
     devServer: {
-        historyApiFallback: true
-    },
-
+        historyApiFallback: {
+            index: './public/index',
+            rewrites: [
+                {from: /favicon.ico/, to: './public/favicon'}
+            ]
+        }
+    }
 }
