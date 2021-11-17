@@ -44,11 +44,6 @@ module.exports = {
         })
     ],
     devServer: {
-        historyApiFallback: {
-            index: './public/index',
-            rewrites: [
-                {from: /favicon.ico/, to: './public/favicon'}
-            ]
-        }
+        historyApiFallback: true
     }
 }
