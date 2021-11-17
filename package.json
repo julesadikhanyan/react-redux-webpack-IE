@@ -7,7 +7,6 @@
     "build": "webpack --mode production",
     "start-all": "npm run build && node server.js",
     "client": "webpack-dev-server --mode development --open --hot",
-    "server": "nodemon server.js",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "heroku-postbuild": "npm run build",
     "start": "node server.js"
