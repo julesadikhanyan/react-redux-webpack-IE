@@ -4,9 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --mode development --open --hot",
     "build": "webpack --mode production",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start-all": "npm run build && node server.js",
+    "client": "webpack-dev-server --mode development --open --hot",
+    "server": "nodemon server.js",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "heroku-postbuild": "npm run build",
+    "start": "node server.js"
   },
   "author": "",
   "license": "ISC",
@@ -31,6 +35,7 @@
     "@material-ui/lab": "^4.0.0-alpha.60",
     "axios": "^0.24.0",
     "core-js": "^3.19.1",
+    "express": "^4.17.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.6",
