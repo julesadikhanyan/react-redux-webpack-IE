@@ -42,52 +42,6 @@ export const fetchCommentsFailure = (postCommentsError) => {
     }
 }
 
-export const fetchCreatePostRequest = () => {
-    return {
-        type: types.FETCH_CREATE_POST_REQUEST
-    }
-}
-
-export const fetchCreatePostSuccess = (id) => {
-    return {
-        type: types.FETCH_CREATE_POST_SUCCESS,
-        postID: id
-    }
-}
-
-export const fetchCreatePostFailure = (createPostError) => {
-    return {
-        type: types.FETCH_CREATE_POST_FAILURE,
-        createPostError: createPostError
-    }
-}
-
-export const setAccessToken = (token) => {
-    return {
-        type: types.SET_ACCESS_TOKEN,
-        token: token
-    }
-}
-
-export const fetchEditPostRequest = () => {
-    return {
-        type: types.FETCH_CREATE_POST_REQUEST
-    }
-}
-
-export const fetchEditPostSuccess = () => {
-    return {
-        type: types.FETCH_CREATE_POST_SUCCESS,
-    }
-}
-
-export const fetchEditPostFailure = (editPostError) => {
-    return {
-        type: types.FETCH_CREATE_POST_FAILURE,
-        editPostError: editPostError
-    }
-}
-
 export function fetchPost(id) {
     return function (dispatch) {
         dispatch(fetchPostRequest());
@@ -111,57 +65,6 @@ export function fetchPost(id) {
             .catch(error => {
                 const message = error.message;
                 dispatch(fetchPostFailure(message));
-            });
-    }
-}
-
-export function fetchCreatePost(token, post, userID) {
-    const authAxios = axios.create({
-        headers: {
-            Authorization: `Bearer ${token}`
-        }
-    });
-    return function (dispatch) {
-        dispatch(fetchCreatePostRequest());
-        authAxios.post(`https://gorest.co.in/public/v1/posts`, {
-            user: "user",
-            user_id: userID,
-            title: post.title,
-            body: post.body
-        })
-            .then((response) => {
-                const id = response.data.data.id;
-                dispatch(fetchCreatePostSuccess(id));
-            })
-            .catch(error => {
-                const message = error.message;
-                console.log(error.response);
-                dispatch(fetchCreatePostFailure(message));
-            });
-    }
-}
-
-export function fetchEditPost(token, post, userID, postID) {
-    const authAxios = axios.create({
-        headers: {
-            Authorization: `Bearer ${token}`
-        }
-    });
-    return function (dispatch) {
-        dispatch(fetchEditPostRequest());
-        authAxios.put(`https://gorest.co.in/public/v1/posts/${postID}`, {
-            user: "user",
-            user_id: userID,
-            title: post.title,
-            body: post.body
-        })
-            .then(() => {
-                dispatch(fetchEditPostSuccess());
-            })
-            .catch(error => {
-                const message = error.message;
-                console.log(error.response);
-                dispatch(fetchEditPostFailure(message));
             });
     }
 }

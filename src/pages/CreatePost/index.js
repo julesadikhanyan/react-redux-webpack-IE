@@ -1,14 +1,16 @@
 import React, {useEffect} from "react";
 import PostForm from "../../components/PostForm";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchCreatePost, fetchEditPost, fetchPost} from "../../redux/post/actions";
+import {fetchCreatePost, fetchEditPost} from "../../redux/createPost/actions";
 import {Link, makeStyles, Typography} from "@material-ui/core";
 import {fetchUsers} from "../../redux/users/actions";
 import {Alert, AlertTitle} from "@material-ui/lab";
-import {CLEAN_CREATE_POST} from "../../redux/post/actionsType";
+import {CLEAR_CREATE_POST} from "../../redux/createPost/actionsType";
 import {useHistory, useLocation} from "react-router-dom";
 import BackButton from "../../components/BackButton";
-
+import Loading from "../../components/Loading";
+import {fetchPost} from "../../redux/post/actions";
+import {CLEAR_POST_STORE} from "../../redux/post/actionsType";
 const useStyles = makeStyles(() => ({
     postFormContainer: {
         width: "60vw",
@@ -38,46 +40,54 @@ const CreatePost = () => {
     const history = useHistory();
     const location = useLocation();
 
-    const userID = useSelector(state => state.usersReducer.userID);
-    const token = useSelector(state => state.postReducer.token);
-    const error = useSelector(state => state.postReducer.createPostError);
-    const postID = useSelector(state => state.postReducer.postID);
-    const isSuccess = useSelector(state => state.postReducer.isSuccess);
+    const token = useSelector(state => state.tokenReducer.token);
     const postDetails = useSelector(state => state.postReducer.postDetails);
+    const error = useSelector(state => state.createPostReducer.createPostError);
+    const postID = useSelector(state => state.createPostReducer.postID);
+    const isSuccess = useSelector(state => state.createPostReducer.isSuccess);
+    const users = useSelector(state => state.usersReducer.users);
+    const createPostLoading = useSelector(state => state.postReducer.createPostLoading);
 
     useEffect(() => {
-        if (userID === -1 && token) {
+        if (token) {
             dispatch(fetchUsers(1));
         }
     }, [token]);
 
     useEffect(() => {
+        return () => {
+            dispatch({ type: CLEAR_CREATE_POST });
+            dispatch({ type: CLEAR_POST_STORE});
+        }
+    }, []);
+
+   useEffect(() => {
         const id = location.search.slice(9);
         if (id !== "") {
             dispatch(fetchPost(id));
         }
     }, []);
 
-    useEffect(() => {
-        return () => {
-            dispatch({ type: CLEAN_CREATE_POST })
-        }
-    }, []);
-
     const fetch = (post) => {
-        if (postDetails) {
-            dispatch(fetchEditPost(token, post, userID, postDetails.id))
+        dispatch({ type: CLEAR_POST_STORE});
+        if (location.search.slice(9) === "") {
+            dispatch(fetchCreatePost(token, post, users[0].id));
         } else {
-            dispatch(fetchCreatePost(token, post, userID));
+            dispatch(fetchEditPost(token, post, users[0].id, location.search.slice(9)));
         }
     };
 
     const historyPush = () => {
-        if (postDetails) {
-            history.push(`/post/${postDetails.id}`);
+        if (location.search.slice(9) !== "") {
+            history.push(`/post/${location.search.slice(9)}`);
         } else {
             history.push(`/post/${postID}`);
         }
+
+    }
+
+   if (location.search.slice(9) !== "" && createPostLoading) {
+        return <Loading/>
     }
 
     return (
@@ -91,7 +101,7 @@ const CreatePost = () => {
                 </Alert>
             }
             {
-                error &&
+               error &&
                 <Alert className={classes.alert} severity="error">
                     <AlertTitle>Error</AlertTitle>
                     <strong>{error}</strong>

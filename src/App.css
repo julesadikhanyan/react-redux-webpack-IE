@@ -1,9 +1,18 @@
 body {
     margin: 0;
     overflow-y: scroll;
+    font-family: "Roboto", sans-serif;
 }
 
+.container {
+    margin: auto;
+    width: 60vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
 
-body {
-    font-family: "Roboto", sans-serif;
+.buttonContainer {
+    width: 100%;
 }

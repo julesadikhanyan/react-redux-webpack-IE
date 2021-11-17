@@ -1,21 +1,16 @@
 import React from "react";
 import { Avatar, Grid, makeStyles, Paper, Typography } from "@material-ui/core";
-import { deepPurple } from "@material-ui/core/colors";
 
 const useStyles = makeStyles((theme) => ({
-    root: {
+    commentContainer: {
         flexGrow: 1,
-        overflow: 'hidden',
-        padding: theme.spacing(2, 0),
-        width: "100%"
+        padding: theme.spacing(1, 0),
+        minWidth: 400,
+        width: "60vw"
     },
     paper: {
         padding: theme.spacing(2),
         border: `1px solid ${theme.palette.info.light}`
-    },
-    purple: {
-        color: theme.palette.getContrastText(deepPurple[500]),
-        backgroundColor: deepPurple[500],
     },
     avatar: {
         backgroundColor: theme.palette.info.light,
@@ -27,9 +22,9 @@ const Comment = (props) => {
     const classes = useStyles();
 
     return (
-        <div className={classes.root}>
+        <div className={classes.commentContainer}>
             <Paper className={classes.paper}>
-                <Grid container wrap="nowrap" spacing={2}>
+                <Grid container spacing={2}>
                     <Grid item>
                         <Avatar className={classes.avatar}/>
                     </Grid>

@@ -2,14 +2,15 @@ import React, {useState} from "react";
 import {AppBar, Button, makeStyles, TextField, Toolbar} from "@material-ui/core";
 import {useHistory, useLocation} from "react-router-dom";
 import {blue} from "@material-ui/core/colors";
-import {REGEX_ACCESS_TOKEN} from "../../../constants";
+import {REGEX_ACCESS_TOKEN} from "../../constants";
 import { useMediaQuery } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
     appBar: {
         background: blue[50],
         boxShadow: "none",
-        padding: 0
+        padding: 0,
+        height: 70
     },
     toolBar: {
         display: "flex",
@@ -22,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
             margin: theme.spacing(1),
         },
     },
-    form: {
+    token: {
         '& > *': {
             margin: theme.spacing(1),
         },
@@ -30,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
         display: "flex"
     },
     field: {
-        width: 300,
+        width: 300
     },
 }));
 
@@ -52,34 +53,28 @@ const Header = (props) => {
                 <Toolbar className={classes.toolBar}>
                     <div className={classes.buttons}>
                         <Button
-                            disabled={ location.pathname === "/users"}
-                            onClick={() => history.push("/users")}
-                        >
-                            Users</Button>
+                            disabled={location.pathname === "/users"}
+                            onClick={() => history.push("/users")}>Users</Button>
                         <Button
-                            disabled={ location.pathname === "/posts"}
-                            onClick={() => history.push("/posts")}
-                        >
-                            Posts</Button>
+                            disabled={location.pathname === "/posts"}
+                            onClick={() => history.push("/posts")}>Posts</Button>
                     </div>
                     {
                         props.token ?
-                            <div className={classes.form}>
+                            <div className={classes.token}>
                                 {
                                     matches === true &&
                                     <Button disabled>{props.token}</Button>
                                 }
                                 <Button onClick={() => props.deleteToken()}>Change Token</Button>
                             </div> :
-                            <form className={classes.form} onSubmit={handleSubmit}>
+                            <form className={classes.token} onSubmit={handleSubmit}>
                                 <TextField
                                 className={classes.field}
                                 label="Access-Token"
-
                                 variant="outlined"
                                 value={token}
                                 onChange={(e) => setToken(e.target.value)}
-
                             />
                             <Button type="submit" disabled={!(REGEX_ACCESS_TOKEN.test(token))}>Save</Button>
                         </form>

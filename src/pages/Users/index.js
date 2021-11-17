@@ -7,31 +7,23 @@ import { CLEAR_STORE_USERS } from "../../redux/users/actionsType";
 import Loading from "../../components/Loading";
 import {makeStyles, Typography} from "@material-ui/core";
 import {Alert, AlertTitle} from "@material-ui/lab";
+import Pages from "../../components/Pagination";
 
 const useStyles = makeStyles(() => ({
-    usersList: {
-        margin: "auto",
-        width: "60vw",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        flexDirection: "column",
-        marginTop: 20,
-        marginBottom: 20
-    },
     usersTitle: {
         fontWeight: "bold",
+        marginTop: 20
     }
 }));
 
 const Users = () => {
     const classes = useStyles();
-
     const dispatch = useDispatch();
+
     const users = useSelector(state => state.usersReducer.users);
-    const pages = useSelector(state => state.usersReducer.usersPages);
+    const pages = useSelector(state => state.usersReducer.usersPagesCount);
     const activeUsersPage = useSelector(state => state.usersReducer.activeUsersPage);
-    const loading = useSelector(state => state.usersReducer.loading);
+    const loading = useSelector(state => state.usersReducer.usersLoading);
     const error = useSelector(state => state.usersReducer.usersError);
 
     useEffect(() => {
@@ -60,19 +52,12 @@ const Users = () => {
     }
 
     return (
-        <>
-            <div className={classes.usersList}>
-                <Typography className={classes.usersTitle} variant="h4">Users List</Typography>
-                <Typography>Page: {activeUsersPage}</Typography>
-                {
-                    users.length > 0 &&
-                    <UsersTable
-                        users={users} pages={pages}
-                        activeUsersPage={activeUsersPage}
-                        fetch={fetch}/>
-                }
-            </div>
-        </>
+        <div className="container">
+            <Typography className={classes.usersTitle} variant="h4">Users List</Typography>
+            <Typography>Page: {activeUsersPage}</Typography>
+            <UsersTable users={users}/>
+            <Pages pages={pages} fetch={fetch} activePage={activeUsersPage}/>
+        </div>
     )
 }
 

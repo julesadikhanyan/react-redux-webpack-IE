@@ -3,10 +3,12 @@ import {Button, makeStyles, TextField, Typography} from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
     postForm: {
+        marginTop: 20,
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        flexDirection: "column"
+        flexDirection: "column",
+        width: "60wv"
     },
     typography: {
         fontWeight: "bold",
@@ -36,8 +38,8 @@ const PostForm = (props) => {
     const handleSubmit = (event) => {
         event.preventDefault();
         props.fetch({title: title, body: body});
-        setTitle("");
-        setBody("");
+        setTitle(title);
+        setBody(body);
     };
 
     const classes = useStyles();

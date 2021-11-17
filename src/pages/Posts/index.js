@@ -6,30 +6,38 @@ import {fetchPosts, setActivePostsPage} from "../../redux/posts/actions";
 import PostsTable from "../../components/PostsTable";
 import { CLEAR_STORE_POSTS } from "../../redux/posts/actionsType";
 import Loading from "../../components/Loading";
-import {makeStyles, Typography} from "@material-ui/core";
+import {Button, makeStyles, Typography} from "@material-ui/core";
 import {Alert, AlertTitle} from "@material-ui/lab";
-import PostButton from "../../components/PostButton";
+import {useHistory} from "react-router-dom";
+import Pages from "../../components/Pagination";
 
-const useStyles = makeStyles(() => ({
-    postsList: {
-        margin: "auto",
-        width: "60vw",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        flexDirection: "column",
-        marginTop: 20,
-        marginBottom: 20
-    },
+const useStyles = makeStyles((theme) => ({
     postsTitle: {
         fontWeight: "bold",
-        textAlign: "center"
+        marginTop: 20
     },
+    postsButton: {
+        width: 200,
+        backgroundColor: theme.palette.secondary.light,
+        color: "white",
+        '&:hover': {
+            backgroundColor: theme.palette.info.light,
+        },
+        marginTop: 10,
+        marginBottom: 10
+    }
 }));
 
 const Posts = () => {
     const classes = useStyles();
     const dispatch = useDispatch();
+    const history = useHistory();
+
+    const posts = useSelector(state => state.postsReducer.posts);
+    const pages = useSelector(state => state.postsReducer.postsPagesCount);
+    const activePostsPage = useSelector(state => state.postsReducer.activePostsPage);
+    const loading = useSelector(state => state.postsReducer.postsLoading);
+    const error = useSelector(state => state.postsReducer.postsError);
 
     useEffect(() => {
         dispatch(fetchPosts(activePostsPage));
@@ -42,12 +50,6 @@ const Posts = () => {
         dispatch(setActivePostsPage(page));
         dispatch(fetchPosts(page));
     }
-
-    const posts = useSelector(state => state.postsReducer.posts);
-    const pages = useSelector(state => state.postsReducer.postsPages);
-    const activePostsPage = useSelector(state => state.postsReducer.activePostsPage);
-    const loading = useSelector(state => state.postsReducer.loading);
-    const error = useSelector(state => state.postsReducer.postsError);
 
     if (loading) {
         return <Loading/>
@@ -63,18 +65,15 @@ const Posts = () => {
     }
 
     return (
-        <div className={classes.postsList}>
+        <div className="container">
             <Typography className={classes.postsTitle} variant="h4">Posts List</Typography>
             <Typography>Page: {activePostsPage}</Typography>
-            <PostButton textButton="Create new post"/>
-            {
-                posts.length > 0 &&
-                <PostsTable
-                    posts={posts} 
-                    pages={pages}
-                    activePostsPage={activePostsPage}
-                    fetch={fetch}/>
-            }
+            <Button
+                className={classes.postsButton}
+                variant="contained"
+                onClick={() => history.push("/new_post")}>Create new post</Button>
+            <PostsTable posts={posts}/>
+            <Pages pages={pages} fetch={fetch} activePage={activePostsPage}/>
         </div>
     )
 }

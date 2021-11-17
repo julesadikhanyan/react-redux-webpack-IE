@@ -41,17 +41,17 @@ export const fetchUserPostsFailure = (userPostsError) => {
     }
 }
 
-export function fetchUser(id) {
+export function fetchUser(userID) {
     return function (dispatch) {
         dispatch(fetchUserRequest());
-        axios.get(`https://gorest.co.in/public/v1/users/${id.id}`)
+        axios.get(`https://gorest.co.in/public/v1/users/${userID}`)
             .then(response => {
                 const user = response.data.data;
                 dispatch(fetchUserSuccess(user));
             })
             .then(() => {
                 dispatch(fetchUserPostsRequest());
-                axios.get(`https://gorest.co.in/public/v1/users/${id.id}/posts`)
+                axios.get(`https://gorest.co.in/public/v1/users/${userID}/posts`)
                     .then(response => {
                         const posts = response.data.data;
                         dispatch(fetchUserPostsSuccess(posts));

@@ -8,36 +8,36 @@ export const fetchUsersRequest = () => {
     }
 }
 
-export const fetchUsersSuccess = (users, pages) => {
+export const fetchUsersSuccess = (users, usersPagesCount) => {
     return {
         type: types.FETCH_USERS_SUCCESS,
         users: users,
-        usersPages: pages
+        usersPagesCount: usersPagesCount
     }
 }
 
-export const fetchUsersFailure = (error) => {
+export const fetchUsersFailure = (usersError) => {
     return {
         type: types.FETCH_USERS_FAILURE,
-        usersError: error
+        usersError: usersError
     }
 }
 
-export const setActiveUsersPage = (page) => {
+export const setActiveUsersPage = (activeUsersPage) => {
     return {
         type: types.SET_ACTIVE_USERS_PAGE,
-        activeUsersPage: page
+        activeUsersPage: activeUsersPage
     }
 }
 
-export function fetchUsers(page) {
+export function fetchUsers(activeUsersPage) {
     return function (dispatch) {
         dispatch(fetchUsersRequest());
-        axios.get(`https://gorest.co.in/public/v1/users?page=${page}`)
+        axios.get(`https://gorest.co.in/public/v1/users?page=${activeUsersPage}`)
             .then(response => {
-                const pages = response.data.meta.pagination.pages;
                 const users = response.data.data;
-                dispatch(fetchUsersSuccess(users, pages));
+                const usersPagesCount = response.data.meta.pagination.pages;
+                dispatch(fetchUsersSuccess(users, usersPagesCount));
             })
             .catch(error => {
                     const message = error.message;

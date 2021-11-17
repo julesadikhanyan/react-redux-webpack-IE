@@ -1,16 +1,14 @@
 import * as types from "./actionsType";
 
 export const initialState = {
+    postLoading: true,
     postDetails: {},
-    postError: "",
     postComments: [],
+    postError: "",
     postCommentsError: "",
-    loading: true,
     createPostError: "",
-    token: localStorage.getItem("token"),
-    postID: -1,
-    isSuccess: false,
-    editPostError: ""
+    editPostError: "",
+    createPostLoading: false
 }
 
 const postReducer = (state = initialState, action) => {
@@ -18,74 +16,53 @@ const postReducer = (state = initialState, action) => {
         case types.FETCH_POST_REQUEST:
             return {
                 ...state,
-                loading: true
+                postLoading: true,
+                createPostLoading: true
             }
         case types.FETCH_POST_SUCCESS:
             return {
                 ...state,
                 postDetails: action.postDetails,
-                loading: true
+                postLoading: true,
+                createPostLoading: true
             }
         case types.FETCH_POST_FAILURE:
             return {
                 ...state,
                 postError: action.postError,
-                loading: false
+                postLoading: false,
+                createPostLoading: false
             }
-        case types.CLEAN_POST_STORE: {
-            return {
-                ...state,
-                postError: "",
-                createPostError: "",
-                postDetails: {},
-
-            }
-        }
         case types.FETCH_COMMENTS_REQUEST:
             return {
                 ...state,
-                loading: true
+                postLoading: true,
+                createPostLoading: true
             }
         case types.FETCH_COMMENTS_SUCCESS:
             return {
                 ...state,
                 postComments: action.postComments,
-                loading: false
+                postLoading: false,
+                createPostLoading: false
             }
         case types.FETCH_COMMENTS_FAILURE:
             return {
                 ...state,
                 postCommentsError: action.postCommentsError,
-
+                postLoading: false,
+                createPostLoading: false
             }
-        case types.FETCH_CREATE_POST_REQUEST:
-            return {
-                ...state
-            }
-        case types.FETCH_CREATE_POST_SUCCESS:
+        case types.CLEAR_POST_STORE: {
             return {
                 ...state,
-                postID: action.postID,
-                isSuccess: true
-            }
-        case types.FETCH_CREATE_POST_FAILURE:
-            return {
-                ...state,
-                createPostError: action.createPostError
-            }
-        case types.SET_ACCESS_TOKEN:
-            return {
-                ...state,
-                token: action.token
-            }
-        case types.CLEAN_CREATE_POST:
-            return {
-                ...state,
+                postError: "",
                 createPostError: "",
-                isSuccess: false,
                 postDetails: {},
-                postComments: []
+                postLoading: true,
+                createPostLoading: false
             }
+        }
         default: return state
     }
 }

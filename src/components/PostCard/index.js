@@ -7,7 +7,7 @@ const useStyles = makeStyles((theme) => ({
         border: `3px solid ${theme.palette.info.light}`,
         boxShadow: "none",
         width: "60vw",
-        minWidth: 300,
+        minWidth: 400,
         boxSizing: "border-box"
     },
     avatar: {
@@ -22,10 +22,10 @@ const PostCard = (props) => {
     return (
         <Card className={classes.postCard}>
             <CardContent>
-                <Typography align="center" gutterBottom variant="h5" component="div">
+                <Typography align="center" variant="h5">
                     {props.postDetails.title}
                 </Typography>
-                <Typography align="justify" variant="body2">
+                <Typography align="justify">
                     {props.postDetails.body}
                 </Typography>
             </CardContent>
