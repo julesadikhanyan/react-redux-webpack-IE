@@ -34,12 +34,12 @@ module.exports = {
     plugins: [
         new HTMLWebpackPlugin({
             template: "./public/index.html",
-            favicon: "./public/favicon.ico"
+            favicon: "./public/favicon.svg"
         }),
         new CleanWebpackPlugin(),
         new CopyWebpackPlugin({
             patterns: [
-                { from: './public/favicon.ico' },
+                { from: './public/favicon.svg' },
             ]
         })
     ],
